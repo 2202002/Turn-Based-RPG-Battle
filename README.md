@@ -156,5 +156,5 @@ Damage formula:
 
 - No frontend, just the backend.
 - No JWT, no rate limiting.
-- No status effects (poison, stun) or type effectiveness (fire vs grass etc) - the brief said basic + magic with mana so I stuck with that.
+- No status effects (poison, stun) or type effectiveness (fire vs grass etc).
 - No automated tests. Services are small and could be unit tested if I had more time, especially the damage formula and the weighted sampling in RewardService.
