@@ -22,7 +22,7 @@ The SQLite database (`rpggame.db`) is created automatically on first run with al
 
 You make an account, create a hero, and fight 5 monsters in order. Each fight is turn-based - you pick a move, the monster picks one back, repeat until somebody hits 0 HP. After you win, you get to pick 1 of 3 random skills from the monster's pool. You can replay any monster as many times as you want to grind XP or try to get a different skill.
 
-One account can have multiple heroes (like LoL). Each hero has its own progression.
+One account can have multiple heroes. Each hero has its own progression.
 
 ### Moves
 
@@ -89,7 +89,7 @@ If `battle/start` is called with no body or with `{ monsterId: null }`, the serv
 ### Sample flow
 
 ```
-POST /api/auth/register   { "username": "sasa", "password": "hunter2" }
+POST /api/auth/register   { "username": "luka", "password": "luka1234" }
    -> { "token": "...", ... }
 
 POST /api/heroes          { "name": "Aldor" }
