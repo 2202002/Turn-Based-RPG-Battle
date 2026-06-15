@@ -1,6 +1,6 @@
-# Nordeus Full Stack Challenge - Backend
+# Turn-Based RPG Battle API — Backend
 
-My submission for the Nordeus Full Stack Challenge 2026. I went backend-only since I had about a day and a half to do it.
+A backend-only RPG battle game built with .NET 8. You make an account, create heroes, and fight monsters in turn-based combat. I focused on the backend and put it together in about a day and a half.
 
 Stack: .NET 8 Web API, EF Core, SQLite, BCrypt for password hashing.
 
@@ -14,7 +14,7 @@ dotnet restore
 dotnet run
 ```
 
-Then open http://localhost:5050/swagger and you can play around with the API there.
+Then open <http://localhost:5050/swagger> and you can play around with the API there.
 
 The SQLite database (`rpggame.db`) is created automatically on first run with all the seed data (moves and monsters). If you want a clean state, just delete the file and run again.
 
@@ -27,6 +27,7 @@ One account can have multiple heroes. Each hero has its own progression.
 ### Moves
 
 Each move is either physical or magic.
+
 - Physical uses your Attack stat, no mana cost.
 - Magic ignores your Attack (it scales with the spell's own power), but costs mana. Magic hits a bit harder to make up for it.
 
@@ -35,6 +36,7 @@ Heroes start with two moves equipped: Slash (physical) and Magic Missile (magic)
 ### Reward picks
 
 When you kill a monster, you get to choose 1 out of 3 skills from its 4-skill pool. The 3 are picked weighted-randomly:
+
 - Each (hero, move) pair has a "weight" that starts at 100.
 - Every time a move is shown to you, its weight gets multiplied by 0.7 (so it shows up a bit less next time).
 - Floor is 5 so it never disappears completely.
@@ -51,6 +53,7 @@ Every move has an archetype (Fighter, Mage, or Assassin). It only matters at MAX
 Levels 1-4 are basically just stat bumps - more power, less mana cost, slightly better accuracy. Mana goes to 0 at level 5.
 
 Level 5 (MAX) gives the move its archetype's special passive:
+
 - Fighter MAX = lifesteal, you heal for 30% of damage you deal with this move
 - Mage MAX = guaranteed crit, every hit does 2x damage
 - Assassin MAX = execute, 2.5x damage if the monster has less than 40% HP
@@ -89,7 +92,7 @@ If `battle/start` is called with no body or with `{ monsterId: null }`, the serv
 ### Sample flow
 
 ```
-POST /api/auth/register   { "username": "luka", "password": "luka1234" }
+POST /api/auth/register   { "username": "player", "password": "player1234" }
    -> { "token": "...", ... }
 
 POST /api/heroes          { "name": "Aldor" }
@@ -116,6 +119,7 @@ RpgGame/
 ```
 
 Services:
+
 - `AuthService` - register, login, token validation
 - `HeroService` - create/get heroes, equip, drop, level up logic
 - `BattleService` - turn resolution, damage formula, monster AI
@@ -148,6 +152,7 @@ XP needed for next level = current level * 100. So 1->2 needs 100 XP, 2->3 needs
 Monsters scale up - Goblin Scout has 60 HP and gives 60 XP, Shadow Dragon has 180 HP and gives 260 XP.
 
 Damage formula:
+
 - Physical: `(Attack * Power / 10) - (Defense / 2)`
 - Magic: `(Power * 1.3) - (Defense / 3)`
 - Final result times a 0.85-1.0 random factor, minimum 1.
